@@ -1,203 +1,209 @@
-import java.util.*;
-class BinarySearchTree{
-    
-    static class Node{
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.Stack;
+
+class TreeImplemention
+{
+    static class Node
+    {
         private int data;
         private Node left;
         private Node right;
-        
-        public Node(){
-            this.data=0;
-            this.left=null;
-            this.right=null;
+
+        public Node()
+        {
+           this.data=0;
+           this.left=null;
+           this.right=null;
         }
-        public Node(int val){
-            this.data=val;
-            this.left=null;
-            this.right=null;
+
+        public Node(int val)
+        {
+          this.data=val;
+          this.left=null;
+          this.right=null;
         }
-        
-        public String toString(){
-            return this.data+" ";
+
+        public String toString()
+        {
+           return  this.data+" ";
         }
     }
-    
-    private Node root;
-    public BinarySearchTree(){
+     private Node root;
+     public TreeImplemention()
+     {
         this.root=null;
-    }
-    
-    
-    
- //------------------------------------
-    
-    
-    public void add(int val){
-        Node newnode=new Node(val);
+     }
+
+     public void add(int val)
+     {
+        Node newnNode=new Node(val);
         if(root==null)
-        root=newnode;
-        else{
-            Node trav=root;
-            
-            while(true){
-                if(val<trav.data){
-                    if(trav.left==null){
-                        trav.left=newnode;
-                        break;
-                    }else
-                    trav=trav.left;
-                }else{
-                    if(trav.right==null){
-                        trav.right=newnode;
-                        break;
-                    }else
-                    trav=trav.right;
-                }
-            }
+        root=newnNode;
+        else
+        {
+           Node trav=root;
+
+           while (true)
+           {
+               if(val<trav.data)
+               {
+                  if(trav.left ==null)
+                  {
+                    trav.left=newnNode;
+                    break;
+                  }
+                  else
+                  trav=trav.left;
+               }
+               else
+               {
+                  if(trav.right==null)
+                  {
+                    trav.right=newnNode;
+                    break;
+                  }
+                  else
+                  trav=trav.right;
+               }
+           }
+
         }
-    }
-   //------------------------------------------------ 
-    private void preeorder(Node trav){
-        if(trav==null)
-        return;
-        System.out.print(trav.data+" ");
-        preeorder(trav.left);
-        preeorder(trav.right);
-    }
-    public void preo(){
-        System.out.print("Preeorder:-");
-        preeorder(root);
-    }
- //--------------------------------------------------   
-    private void inorder(Node trav){
-        if(trav==null)
-        return;
-        inorder(trav.left);
-        System.out.print(trav.data+" ");
-        inorder(trav.right);
-    }
-    public void Ineo(){
-        System.out.print("Inorder:-");
-        inorder(root);
-    }
-
-    //--------------------------------------
-    
-    private void postorder(Node trav){
-        if(trav==null)
-        return;
-        postorder(trav.left);
-        postorder(trav.right);
-        System.out.print(trav.data+" ");
-    }
-    public void Poso(){
-        System.out.print("Postorder:-");
-        postorder(root);
-    }
-    
-
-
-
-//------------------------------------
-    private int Hight(Node trav){
-        if(trav==null)
-        return -1;
-       int hl=Hight(trav.left);
-       int hr=Hight(trav.right);
-       int max=Integer.max(hl,hr);
-       return max+1;
+     }
+//---------------------------------------
+     public void preOrderTraversal()
+     {
+         System.out.print("PreOrder Traversal :- ");
+         bstPreOrderTraversal(root);
        
-     
-    }
-    public int hi(){
-      
-       int h= Hight(root);
-       return h;
-    }
-    
-  //----------------------------------------  
+     }
+     public void bstPreOrderTraversal(Node trav)
+     {
+         if(trav == null)
+         return ;
+         System.out.print(trav.data+" ");
+         bstPreOrderTraversal(trav.left);
+         bstPreOrderTraversal(trav.right);
+     }
 
+     //--------------------------------
+     public void inOrderTraversal()
+     {
+         System.out.print("InOrder Traversal :- ");
+         bstInOrderTraversal(root);
+       
+     }
+     public void bstInOrderTraversal(Node trav)
+     {
+         if(trav == null)
+         return ;
+         
+         bstInOrderTraversal(trav.left);
+         System.out.print(trav.data+" ");
+         bstInOrderTraversal(trav.right);
+     }
+    //-----------------------------------------
+     public void postOrderTraversal()
+     {
+         System.out.print("PostOrdern Traversal :- ");
+         bstPostOrderTraversal(root);
+         
+     }
+     public void bstPostOrderTraversal(Node trav)
+     {
+         if(trav == null)
+         return ;
+         
+         bstPostOrderTraversal(trav.left);
+         bstPostOrderTraversal(trav.right);
+         System.out.print(trav.data+" ");
+     }
+//---------------------------------------------------
+     public int hightOfTree()
+     {
+        return bstHightOfTree(root);
+     }
+     private int bstHightOfTree(Node trav)
+     {
+          if(trav==null)
+          return -1;
+          int hl=bstHightOfTree(trav.left);
+          int hr=bstHightOfTree(trav.right);
+          return Math.max(hl, hr)+1;
+     }
+//---------------------------------------------------
+     private void bstDelTree(Node trav)
+     {
+        if(trav==null)
+        return;
 
-private void delt(Node trav){
-    if(trav==null)
-    return;
-    
-    delt(trav.left);
-    trav.left=null;
-    delt(trav.right);
-    trav.right=null;
-    
-    trav=null;
-    
-}  
-  
-  public void deltree(){
-      delt(root);
-      root=null;
-  }  
-    
-//------------------------------------------------- 
+        bstDelTree(trav.left);
+        trav.left=null;
+        bstDelTree(trav.right);
+        trav.right=null;
 
-public Node Search(int val){
-    Node trav=root;
-    
-    while(trav!=null)
-    {
+        trav=null;
+     }
+     public void delTree()
+     {
+           bstDelTree(root);
+           root=null;
+     }
+
+     public Node serch(int val)
+     {
+        Node trav=root; 
+         while(trav !=null)
+         {
+          if(val == trav.data)
+          {
+              return trav;
+          }
+          if(val>trav.data)
+          trav=trav.right;
+          else
+          trav=trav.left;
+         }
+         return null;
+     }
+//---------------------------------------------------------------
+     private Node bstRecursiveSearch(Node trav,int val)
+     {
+       if(trav==null)
+       return null;
         if(val==trav.data)
         return trav;
-        if(val<trav.data)
-        trav=trav.left;
+        if(val > trav.data)
+        return bstRecursiveSearch(trav.right, val);
         else
-        trav=trav.right;
-    }
-    return null;
-}
-//------------------------------------------------------
+        return bstRecursiveSearch(trav.left, val);
+     }
+     public Node recursiveSerach(int val)
+     {
+         return bstRecursiveSearch(root,val);
+     }
 
-public Node recSerch(Node trav,int val){
-    if(trav==null)
-    return null;
-    
-    if(val==trav.data)
-    return trav;
-    if(val<trav.data)
-    return recSerch(trav.left,val);
-    else
-    return recSerch(trav.right,val);
-}
+//--------------------------------------------------
+     public void BFS_LevelOrderTraversal()
+     {
+      // explore all adjecent vertex then go to next vertex
+          System.out.println("Level Order Traversal :- ");
+          Queue<Node>queue=new ArrayDeque<>();
+          queue.offer(root);
 
-public Node RecSearch(int val){
-    return recSerch(root,val);
-}
-//----------------------------------------
-public  void BFS_leveOrderTraversal()
-    { 
-       // In BFS:- when need explore all vertex of adjacent of that vertex then go to next vertex
-        System.out.print("Level Order Traversal :- ");
-        Queue<Node>treeNodeQueue=new LinkedList<>();
-        //Start With the first/root node
-        treeNodeQueue.add(root);
-         //Run a loop till this queue is not empty
+          while (!queue.isEmpty()) 
+          {
+              Node trav=  queue.poll();
+              System.out.print(trav.data+" ");
 
-         while(!treeNodeQueue.isEmpty())
-         {
-            Node treeNode=treeNodeQueue.poll();
+              if(trav.left !=null)
+              queue.add(trav.left);
+              if(trav.right !=null)
+              queue.add(trav.right);
 
-            //print the value
-            System.out.print(treeNode.data+" ");
-            
-            //Add left child to queue
-            if(treeNode.left !=null)
-            treeNodeQueue.add(treeNode.left);
-
-            //Add right child to queue
-            if(treeNode.right !=null)
-            treeNodeQueue.add(treeNode.right);
-         }
-        
-    }
-//--------------------------------------------------------
- 
+          }
+     }
+     //-------------------------------------------------
      public void DFS()
      {
           System.out.println("DFS Traversal :- ");
@@ -218,53 +224,34 @@ public  void BFS_leveOrderTraversal()
 
           }
      }
-//--------------------------------------------------
-
 }
 
 public class App {
     public static void main(String[] args) throws Exception {
 
-        BinarySearchTree bst=new BinarySearchTree();
-        bst.add(10);
-        bst.add(20);
-         bst.add(5);
-        bst.preo();
-        
-         System.out.println();
-         bst.Ineo();
-         
-         System.out.println();
-         bst.Poso();
-         
-     System.out.println();
-     int h=bst.hi();
-     if(h==-1)
-     System.out.println("Tree is empty");
-     else
-     System.out.println("Hight of tree is "+h);
-         
-       System.out.println();
-    //   bst.deltree();
-        
-    //  int h2=bst.hi();
-    //  if(h2==-1)
-    //  System.out.println("Tree is empty");
-    //  else
-    //  System.out.println("Hight of tree is "+h2);
-    
-    
-  BinarySearchTree.Node temp=bst.Search(10);
-  if(temp==null)
-  System.out.println("element is not present in tree");
-  else
-  System.out.println("element is present in tree "+temp);
-    
-  BinarySearchTree.Node tem=bst.RecSearch(20);
-  if(tem==null)
-  System.out.println("element is not present in tree");
-  else
-  System.out.println("element is present in tree "+tem);
+        TreeImplemention bst=new TreeImplemention();
+      bst.add(50);
+      bst.add(60);
+      bst.add(40);
+
+      bst.preOrderTraversal();
+      System.out.println();
+      bst.inOrderTraversal();
+      System.out.println();
+      bst.postOrderTraversal();
+      System.out.println();
+
+      int check_hight=bst.hightOfTree();
+      System.out.println(check_hight==-1?"Tree is not present it's empty tree why you finding hight of tree ":"Hight of Tree is :- "+check_hight);
+      // bst.delTree();
+      // bst.inOrderTraversal();
+     
+      TreeImplemention.Node searchCheck= bst.recursiveSerach(60);
+      System.out.println(searchCheck == null ?"Element is not present in tree ":"Element is prsent in tree :- "+searchCheck);
+
+      bst.BFS_LevelOrderTraversal();
+      System.out.println();
+      bst.DFS();
     
     
    
